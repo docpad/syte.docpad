@@ -1,4 +1,5 @@
 # API Keys
+TUMBLR_API_KEY = process.env.TUMBLR_API_KEY or 'zjl94wRf2vIoa1XrIjpacBRnwbsISgX0OPVsGG4T9hRvwhJaPj'
 SOUNDCLOUD_CLIENT_ID = process.env.SOUNDCLOUD_CLIENT_ID or 'ea5f91809133eacd8d92c9291b770a61'
 
 # The DocPad Configuration File
@@ -207,24 +208,27 @@ module.exports = {
 
 			# These are the feeds that Feedr will pull in
 			feeds:
-				# DocPad's Twitter Stream
+				# Twitter
 				# Included here as an example
 				twitter: url: "https://api.twitter.com/1/statuses/user_timeline.json?screen_name=balupton&count=50&include_entities=false&include_rts=false&exclude_replies=true"
 
-				# Balupton's Github Streams
+				# Github
 				# Included here as an example
 				githubUser: url: "https://api.github.com/users/balupton"
 				githubRepos: url: "https://api.github.com/users/balupton/repos?sort=updated"
 
-				# Balupton's Vimeo Stream
+				# Vimeo
 				# Included here as an example
 				vimeo: url: "http://vimeo.com/api/v2/balupton/videos.json"
 
-				# Balupton's Flickr Stream
+				# Flickr
 				# Included here as an example
-				#flickr: url: "http://api.flickr.com/services/feeds/photos_public.gne?id=35776898@N00&lang=en-us&format=json"
+				flickr: url: "http://api.flickr.com/services/feeds/photos_public.gne?id=35776898@N00&lang=en-us&format=json"
 
-				# Balupton's Soundcloud Stream
+				# Tumblr
+				tumblr: url: '"http://api.tumblr.com/v2/blog/balupton.tumblr.com/posts?api_key=#{TUMBLR_API_KEY}'
+
+				# Soundcloud
 				soundcloudUser: url: "https://api.soundcloud.com/users/balupton.json?client_id=#{SOUNDCLOUD_CLIENT_ID}"
 				soundcloudTracks: url: "https://api.soundcloud.com/users/balupton/tracks.json?client_id=#{SOUNDCLOUD_CLIENT_ID}"
 }

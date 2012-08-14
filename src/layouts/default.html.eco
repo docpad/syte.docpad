@@ -42,8 +42,8 @@
 			<div class="picture">
 				<a href="/" rel="home"></a>
 			</div>
-			<h1><%= @t @site.heading %></h1>
-			<h2><%= @t @site.subheading %></h2>
+			<h1><%= @site.heading %></h1>
+			<h2><%= @site.subheading %></h2>
 		</hgroup>
 		<nav>
 			<ul class="main-nav">
@@ -71,24 +71,9 @@
 		<h3><a href="/"><%= @site.url %></a></h3>
 	</div>
 
-	<!-- Analytics: ReInvigorate -->
-	<% if (@site.analytics or {}).reinvigorate: %>
-		<script src="http://include.reinvigorate.net/re_.js"></script>
-		<script>reinvigorate.track("#{@site.analytics.reinvigorate}")</script>
-	<% end %>
-
-	<!-- Analytics: Google -->
-	<% if (@site.analytics or {}).google: %>
-		<script>
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', '#{@site.analytics.google}']);
-			_gaq.push(['_trackPageview']);
-			(function() {
-				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-			})();
-		</script>
+	<!-- Analytic Accounts -->
+	<% for analyticsID,analyticsAccount of @site.analytics: %>
+		<%- @partial("analytics/#{analyticsID}.html.eco", {account:@analyticsAccount}) %>
 	<% end %>
 
 	<!-- Scripts -->

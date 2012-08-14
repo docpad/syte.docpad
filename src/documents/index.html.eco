@@ -1,0 +1,9 @@
+---
+layout: default
+---
+
+<section class="main-section blog-section" id="blog-posts">
+	<% for post in @feedr.feeds.tumblr?.response?.posts or []: %>
+		<%- @partial('post/post.html.eco',post) %>
+	<% end %>
+</section>
