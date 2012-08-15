@@ -1,4 +1,6 @@
 # API Keys
+INSTAGRAM_ACCESS_TOKEN = process.env.INSTAGRAM_ACCESS_TOKEN or '5876296.f59def8.10cca26fcf08405fabaafcc88a82b1a0'
+INSTAGRAM_CLIENT_ID = process.env.INSTAGRAM_CLIENT_ID or '2a5411503cd64e4e8a9c98b0a973040f'
 TUMBLR_API_KEY = process.env.TUMBLR_API_KEY or 'zjl94wRf2vIoa1XrIjpacBRnwbsISgX0OPVsGG4T9hRvwhJaPj'
 SOUNDCLOUD_CLIENT_ID = process.env.SOUNDCLOUD_CLIENT_ID or 'ea5f91809133eacd8d92c9291b770a61'
 
@@ -85,17 +87,15 @@ module.exports = {
 			# If you specify a feed for the Feedr plugin (specified later on)
 			# then we will pull in their feed data too for recognised services
 			social:
-				# DocPad's Twitter Profile
-				# Included here as an example
+				# Twitter
 				twitter:
 					name: 'Twitter'
-					url: 'https://twitter.com/docpad'
+					url: 'https://twitter.com/balupton'
 					profile:
 						feeds:
 							tweets: 'twitter'
 
-				# Balupton's GitHub Profile
-				# Included here as an example
+				# GitHub
 				github:
 					name: 'GitHub'
 					url: 'https://github.com/balupton'
@@ -104,19 +104,17 @@ module.exports = {
 							user: 'githubUser'
 							repos: 'githubRepos'
 
-				# Balupton's Vimeo Profile
-				# Included here as an example
+				# Vimeo
 				vimeo:
 					name: 'Vimeo'
 					url: 'https://vimeo.com/balupton'
 
-				# Balupton's Flickr Profile
-				# Included here as an example
+				# Flickr
 				flickr:
 					name: 'Flickr'
 					url: 'http://www.flickr.com/people/balupton/'
 
-				# Balupton's Soundcloud Profile
+				# Soundcloud
 				soundcloud:
 					name: 'Soundcloud'
 					url: 'http://soundcloud.com/balupton'
@@ -124,6 +122,16 @@ module.exports = {
 						feeds:
 							user: 'soundcloudUser'
 							tracks: 'soundcloudTracks'
+
+				# Instagram
+				instagram:
+					name: 'Instagram'
+					url: 'https://github.com/balupton'
+					profile:
+						feeds:
+							user: 'instagramUser'
+							media: 'instagramMedia'
+
 
 		# -----------------------------
 		# Common links used throughout the website
@@ -231,4 +239,8 @@ module.exports = {
 				# Soundcloud
 				soundcloudUser: url: "https://api.soundcloud.com/users/balupton.json?client_id=#{SOUNDCLOUD_CLIENT_ID}"
 				soundcloudTracks: url: "https://api.soundcloud.com/users/balupton/tracks.json?client_id=#{SOUNDCLOUD_CLIENT_ID}"
+
+				# Instagram
+				instagramUser: url: "https://api.instagram.com/v1/users/5876296?client_id=#{INSTAGRAM_CLIENT_ID}"
+				instagramMedia: url: "https://api.instagram.com/v1/users/5876296/media/recent?access_token=#{INSTAGRAM_ACCESS_TOKEN}"
 }

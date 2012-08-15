@@ -1,5 +1,5 @@
 <div class="profile instagram modal fade-large" id="instagram-profile">
-	{{#with user}}
+	{{#with user.data}}
 	<div class="profile-info">
 		<button class="close" data-dismiss="modal">×</button>
 		<span class="profile-avatar">
@@ -24,7 +24,7 @@
 	</ul>
 	{{/with}}
 	<ul class="profile-shots">
-		{{#each media}}
+		{{#each media.data}}
 		<li>
 			<a href="{{ link }}" class="profile-shot">
 				{{#with images}}
@@ -55,4 +55,3 @@
 	{{/with}}
 	{{/if}}
 </div>
-
