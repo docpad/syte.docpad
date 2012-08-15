@@ -205,7 +205,7 @@ module.exports = {
 		# Configure the Feedr Plugin
 		# The Feedr Plugin will pull in remote feeds specified here and make their contents available to our templates
 		feedr:
-
+			
 			# These are the feeds that Feedr will pull in
 			feeds:
 				# Twitter
@@ -226,7 +226,7 @@ module.exports = {
 				flickr: url: "http://api.flickr.com/services/feeds/photos_public.gne?id=35776898@N00&lang=en-us&format=json"
 
 				# Tumblr
-				tumblr: url: '"http://api.tumblr.com/v2/blog/balupton.tumblr.com/posts?api_key=#{TUMBLR_API_KEY}'
+				tumblr: url: "http://api.tumblr.com/v2/blog/balupton.tumblr.com/posts?api_key=#{TUMBLR_API_KEY}"
 
 				# Soundcloud
 				soundcloudUser: url: "https://api.soundcloud.com/users/balupton.json?client_id=#{SOUNDCLOUD_CLIENT_ID}"

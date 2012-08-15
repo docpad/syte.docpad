@@ -80,7 +80,7 @@
 	<%- @getBlock('scripts').add(["/vendor/jquery.js","/vendor/log.js","/vendor/modernizr.js","/scripts/script.js"]).toHTML() %>
 
 	<!-- Social Profiles -->
-	<div class="modal-backdrop fade"></div>
+	<div class="modal-backdrop fade" style="display:none"></div>
 	<% for socialID,socialAccount of @site.social: %>
 		<% if socialAccount.profile: %>
 			<%- @partial("social/#{socialID}.html.hb", @getSocialFeeds(socialID)) %>

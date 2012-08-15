@@ -1,7 +1,7 @@
 <article id="{{ id }}">
 	<hgroup>
 	<h2><a href="/post/{{ id }}">{{ artist }} - {{ track_name }}</a></h2>
-		<h3><a href="#{{ id }}">{{ formated_date }}</a></h3>
+		<h3><a href="#{{ id }}">{{ date }}</a></h3>
 	</hgroup>
 	{{{ player }}}
 	{{#if caption}}

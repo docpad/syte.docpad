@@ -1,7 +1,7 @@
 <article id="{{ id }}">
 	<hgroup>
 		<h2><a href="/post/{{ id }}">Video</a></h2>
-		<h3><a href="#{{ id }}">{{ formated_date }}</a></h3>
+		<h3><a href="#{{ id }}">{{ date }}</a></h3>
 	</hgroup>
 	<p>
 		<a href="{{ permalink_url }}" class="no-border"><img src="{{ thumbnail_url }}" /></a>
