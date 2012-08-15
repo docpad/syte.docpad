@@ -58,7 +58,7 @@ $ ->
 	$profiles.find('.close').add($backdrop).click ->
 		$profiles.removeClass('in')
 		$body.removeClass('modal-open')
-		$backdrop.removeClass('in')
+		$backdrop.removeClass('in').hide()
 		$nav.children().removeClass('sel')
 
 	$('.social-link').click (event) ->
@@ -76,7 +76,7 @@ $ ->
 		event.preventDefault()
 
 		$body.addClass('modal-open')
-		$backdrop.addClass('in')
+		$backdrop.show().addClass('in')
 
 		$this.parent().addClass('sel').siblings('.sel').removeClass('sel')
 
