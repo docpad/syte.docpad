@@ -5,11 +5,11 @@ wait = (ms,fn) -> setTimeout(fn,ms)
 Flash some elements really quickly
 ###
 $.fn.flash = (options, callback) ->
-	
+
 	# Prepare
 	$els = $(this)
 	options = options or {}
-	
+
 	# Animate
 	$els.clearQueue().stop(true, true).queue ->
 		$this = $(this)
@@ -44,7 +44,7 @@ $.fn.flash = (options, callback) ->
 				callback.call this	if callback
 		).dequeue()
 
-	
+
 	# Chain
 	this
 
@@ -61,27 +61,26 @@ $ ->
 		$backdrop.removeClass('in').hide()
 		$nav.children().removeClass('sel')
 
-	$('.social-link').click (event) ->
-		return	if event.which == 2 || event.metaKey
-
+	$('.social-link').each ->
 		$this = $(this)
 		socialID = $this.data('socialid')
 		socialSelector = '.'+socialID
-
-		$active = $profiles.filter('.in')
 		$selected = $profiles.filter(socialSelector)
-
 		return  if $selected.length is 0
 
-		event.preventDefault()
+		$this.click (event) ->
+			return	if event.which == 2 || event.metaKey
 
-		$body.addClass('modal-open')
-		$backdrop.show().addClass('in')
+			event.preventDefault()
 
-		$this.parent().addClass('sel').siblings('.sel').removeClass('sel')
+			$active = $profiles.filter('.in')
+			$body.addClass('modal-open')
+			$backdrop.show().addClass('in')
 
-		if $active.is(socialSelector)
-			$selected.flash(times:1,opacity:0.25,duration:100)
-		else
-			$active.fadeOut 200, -> $active.removeClass('in').show()
-			$selected.addClass('in')
+			$this.parent().addClass('sel').siblings('.sel').removeClass('sel')
+
+			if $active.is(socialSelector)
+				$selected.flash(times:1,opacity:0.25,duration:100)
+			else
+				$active.fadeOut 200, -> $active.removeClass('in').show()
+				$selected.addClass('in')

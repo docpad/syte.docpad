@@ -1,12 +1,51 @@
-# API Keys
+# =================================
+# Social Integrations
+
+# Flickr
+FLICKR_USER_ID = '35776898@N00'
+# Create client here: http://www.flickr.com/services/apps/create/noncommercial/?
+FLICKR_API_KEY = process.env.FLICKR_API_KEY or '1c80de053ccab1aea6ea985d67321172'
+
+# Instagram
+INSTAGRAM_USER_ID = '5876296'
+# Create client here: http://instagram.com/developer/clients/register/
 INSTAGRAM_ACCESS_TOKEN = process.env.INSTAGRAM_ACCESS_TOKEN or '5876296.f59def8.10cca26fcf08405fabaafcc88a82b1a0'
 INSTAGRAM_CLIENT_ID = process.env.INSTAGRAM_CLIENT_ID or '2a5411503cd64e4e8a9c98b0a973040f'
+
+# Tumblr
+TUMBLR_BLOG = 'balupton.tumblr.com'
+# Create client here: http://www.tumblr.com/oauth/register
 TUMBLR_API_KEY = process.env.TUMBLR_API_KEY or 'zjl94wRf2vIoa1XrIjpacBRnwbsISgX0OPVsGG4T9hRvwhJaPj'
+
+# Soundcloud
+SOUNDCLOUD_USERNAME = 'balupton'
+# Create client here: http://soundcloud.com/you/apps/new
 SOUNDCLOUD_CLIENT_ID = process.env.SOUNDCLOUD_CLIENT_ID or 'ea5f91809133eacd8d92c9291b770a61'
+
+# Vimeo
+VIMEO_USERNAME = 'balupton'
+
+# GitHub
+GITHUB_USERNAME = 'balupton'
+
+# Twitter
+TWITTER_USERNAME = 'balupton'
+
+
+# =================================
+# DocPad Configuration
 
 # The DocPad Configuration File
 # It is simply a CoffeeScript Object which is parsed by CSON
 module.exports = {
+	# =================================
+	# DocPad Options
+
+	# Regenerate Every
+	# Performs a rengeraete every x milliseconds, useful for always having the latest data
+	regenerateEvery: 60*60*1000 # hour
+
+
 	# =================================
 	# Template Data
 	# These are variables that will be accessible via our templates
@@ -113,6 +152,10 @@ module.exports = {
 				flickr:
 					name: 'Flickr'
 					url: 'http://www.flickr.com/people/balupton/'
+					profile:
+						feeds:
+							user: 'flickrUser'
+							photos: 'flickrPhotos'
 
 				# Soundcloud
 				soundcloud:
@@ -213,34 +256,35 @@ module.exports = {
 		# Configure the Feedr Plugin
 		# The Feedr Plugin will pull in remote feeds specified here and make their contents available to our templates
 		feedr:
-			
+
 			# These are the feeds that Feedr will pull in
 			feeds:
 				# Twitter
 				# Included here as an example
-				twitter: url: "https://api.twitter.com/1/statuses/user_timeline.json?screen_name=balupton&count=50&include_entities=false&include_rts=false&exclude_replies=true"
+				twitter: url: "https://api.twitter.com/1/statuses/user_timeline.json?screen_name=#{TWITTER_USERNAME}&count=50&include_entities=false&include_rts=false&exclude_replies=true"
 
 				# Github
 				# Included here as an example
-				githubUser: url: "https://api.github.com/users/balupton"
-				githubRepos: url: "https://api.github.com/users/balupton/repos?sort=updated"
+				githubUser: url: "https://api.github.com/users/#{GITHUB_USERNAME}"
+				githubRepos: url: "https://api.github.com/users/#{GITHUB_USERNAME}/repos?sort=updated"
 
 				# Vimeo
 				# Included here as an example
-				vimeo: url: "http://vimeo.com/api/v2/balupton/videos.json"
+				vimeo: url: "http://vimeo.com/api/v2/#{VIMEO_USERNAME}/videos.json"
 
 				# Flickr
 				# Included here as an example
-				flickr: url: "http://api.flickr.com/services/feeds/photos_public.gne?id=35776898@N00&lang=en-us&format=json"
+				flickrUser: url: "http://api.flickr.com/services/rest/?method=flickr.people.getInfo&api_key=#{FLICKR_API_KEY}&user_id=#{FLICKR_USER_ID}&format=json&nojsoncallback=1"
+				flickrPhotos: url: "http://api.flickr.com/services/feeds/photos_public.gne?id=#{FLICKR_USER_ID}&lang=en-us&format=json&nojsoncallback=1"
 
 				# Tumblr
-				tumblr: url: "http://api.tumblr.com/v2/blog/balupton.tumblr.com/posts?api_key=#{TUMBLR_API_KEY}"
+				tumblr: url: "http://api.tumblr.com/v2/blog/#{TUMBLR_BLOG}/posts?api_key=#{TUMBLR_API_KEY}"
 
 				# Soundcloud
-				soundcloudUser: url: "https://api.soundcloud.com/users/balupton.json?client_id=#{SOUNDCLOUD_CLIENT_ID}"
-				soundcloudTracks: url: "https://api.soundcloud.com/users/balupton/tracks.json?client_id=#{SOUNDCLOUD_CLIENT_ID}"
+				soundcloudUser: url: "https://api.soundcloud.com/users/#{SOUNDCLOUD_USERNAME}.json?client_id=#{SOUNDCLOUD_CLIENT_ID}"
+				soundcloudTracks: url: "https://api.soundcloud.com/users/#{SOUNDCLOUD_USERNAME}/tracks.json?client_id=#{SOUNDCLOUD_CLIENT_ID}"
 
 				# Instagram
-				instagramUser: url: "https://api.instagram.com/v1/users/5876296?client_id=#{INSTAGRAM_CLIENT_ID}"
-				instagramMedia: url: "https://api.instagram.com/v1/users/5876296/media/recent?access_token=#{INSTAGRAM_ACCESS_TOKEN}"
+				instagramUser: url: "https://api.instagram.com/v1/users/#{INSTAGRAM_USER_ID}?client_id=#{INSTAGRAM_CLIENT_ID}"
+				instagramMedia: url: "https://api.instagram.com/v1/users/#{INSTAGRAM_USER_ID}/media/recent?access_token=#{INSTAGRAM_ACCESS_TOKEN}"
 }

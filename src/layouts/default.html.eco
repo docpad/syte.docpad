@@ -35,6 +35,11 @@
 
 	<!-- Styles -->
 	<%- @getBlock('styles').add(["/styles/styles.css"]).toHTML() %>
+
+
+	<!-- Fonts -->
+    <link rel="stylesheet" href="fonts/syte/css/syte.css">
+    <!--[if IE 7]><link rel="stylesheet" href="fonts/syte/css/syte-ie7.css"><![endif]-->
 </head>
 <body>
 	<header class="main-header">
@@ -49,9 +54,9 @@
 			<ul class="main-nav">
 				<li><a href="/" id="home-link">Home</a></li>
 				<% for socialID,socialAccount of @site.social: %>
-					<li><a href="<%= socialAccount.url %>" class="social-link" data-socialid="<%= socialID %>" target="_blank"><%= socialAccount.name %></a></li>
+					<li><a href="<%= socialAccount.url %>" class="social-link" data-socialid="<%= socialID %>" target="_blank"><%= socialAccount.name %> <% unless socialAccount.profile: %><span class="icon-link"/><% end %></a></li>
 				<% end %>
-				<li><a href="mailto:<%= @site.email %>?subject=Hello" id="contact-link">Contact</a></li>
+				<li><a href="mailto:<%= @site.email %>?subject=Hello" id="contact-link">Contact <span class="icon-link"/></a></li>
 			</ul>
 		</nav>
 		<% if @site.sourceUrl: %>
