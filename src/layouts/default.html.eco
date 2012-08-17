@@ -42,8 +42,8 @@
 			<div class="picture">
 				<a href="/" rel="home"></a>
 			</div>
-			<h1><%= @site.heading %></h1>
-			<h2><%= @site.subheading %></h2>
+			<h1><%- @site.heading %></h1>
+			<h2><%- @site.subheading %></h2>
 		</hgroup>
 		<nav>
 			<ul class="main-nav">
