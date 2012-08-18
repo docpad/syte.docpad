@@ -260,21 +260,19 @@ module.exports = {
 			# These are the feeds that Feedr will pull in
 			feeds:
 				# Twitter
-				# Included here as an example
 				twitter: url: "https://api.twitter.com/1/statuses/user_timeline.json?screen_name=#{TWITTER_USERNAME}&count=50&include_entities=false&include_rts=false&exclude_replies=true"
 
 				# Github
-				# Included here as an example
 				githubUser: url: "https://api.github.com/users/#{GITHUB_USERNAME}"
 				githubRepos: url: "https://api.github.com/users/#{GITHUB_USERNAME}/repos?sort=updated"
 
 				# Vimeo
-				# Included here as an example
 				vimeo: url: "http://vimeo.com/api/v2/#{VIMEO_USERNAME}/videos.json"
 
 				# Flickr
-				# Included here as an example
-				flickrUser: url: "http://api.flickr.com/services/rest/?method=flickr.people.getInfo&api_key=#{FLICKR_API_KEY}&user_id=#{FLICKR_USER_ID}&format=json&nojsoncallback=1"
+				flickrUser:
+					url: "http://api.flickr.com/services/rest/?method=flickr.people.getInfo&api_key=#{FLICKR_API_KEY}&user_id=#{FLICKR_USER_ID}&format=json&nojsoncallback=1"
+					clean: true
 				flickrPhotos: url: "http://api.flickr.com/services/feeds/photos_public.gne?id=#{FLICKR_USER_ID}&lang=en-us&format=json&nojsoncallback=1"
 
 				# Tumblr

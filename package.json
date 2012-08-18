@@ -42,10 +42,12 @@
   "dependencies": {
     "moment": "1.7.x",
     "docpad": "6.x",
+    "docpad-plugin-cachr": "2.x",
     "docpad-plugin-cleanurls": "2.x",
     "docpad-plugin-coffeescript": "2.x",
     "docpad-plugin-coffeekup": "2.x",
     "docpad-plugin-eco": "2.x",
+    "docpad-plugin-feedr": "2.x",
     "docpad-plugin-haml": "2.x",
     "docpad-plugin-handlebars": "2.x",
     "docpad-plugin-html2coffee": "2.x",
@@ -55,9 +57,7 @@
     "docpad-plugin-markdown": "2.x",
     "docpad-plugin-partials": "2.x",
     "docpad-plugin-stylus": "2.x",
-    "docpad-plugin-text": "2.x",
-    "docpad-plugin-feedr": "~2.0.2",
-    "docpad-plugin-cachr": "~2.0.2"
+    "docpad-plugin-text": "2.x"
   },
   "devDependencies": {
     "docpad-plugin-livereload": "2.x"
