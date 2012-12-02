@@ -2,8 +2,4 @@
 layout: default
 ---
 
-<section class="main-section blog-section" id="blog-posts">
-	<% for post in @feedr.feeds.tumblr?.response?.posts or []: %>
-		<%- @partial("post/#{post.type}.html.hb",post) %>
-	<% end %>
-</section>
+<%- @partial('content/list.html.eco', {posts:@tumblrPosts}) %>

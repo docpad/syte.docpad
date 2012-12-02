@@ -1,35 +1,13 @@
 # =================================
-# Social Integrations
+# Environment Configuration
 
-# Flickr
-FLICKR_USER_ID = '35776898@N00'
-# Create client here: http://www.flickr.com/services/apps/create/noncommercial/?
-FLICKR_API_KEY = process.env.FLICKR_API_KEY or '1c80de053ccab1aea6ea985d67321172'
-
-# Instagram
-INSTAGRAM_USER_ID = '5876296'
-# Create client here: http://instagram.com/developer/clients/register/
-INSTAGRAM_ACCESS_TOKEN = process.env.INSTAGRAM_ACCESS_TOKEN or '5876296.f59def8.10cca26fcf08405fabaafcc88a82b1a0'
-INSTAGRAM_CLIENT_ID = process.env.INSTAGRAM_CLIENT_ID or '2a5411503cd64e4e8a9c98b0a973040f'
-
-# Tumblr
-TUMBLR_BLOG = 'balupton.tumblr.com'
-# Create client here: http://www.tumblr.com/oauth/register
-TUMBLR_API_KEY = process.env.TUMBLR_API_KEY or 'zjl94wRf2vIoa1XrIjpacBRnwbsISgX0OPVsGG4T9hRvwhJaPj'
-
-# Soundcloud
-SOUNDCLOUD_USERNAME = 'balupton'
-# Create client here: http://soundcloud.com/you/apps/new
-SOUNDCLOUD_CLIENT_ID = process.env.SOUNDCLOUD_CLIENT_ID or 'ea5f91809133eacd8d92c9291b770a61'
-
-# Vimeo
-VIMEO_USERNAME = 'balupton'
-
-# GitHub
-GITHUB_USERNAME = 'balupton'
-
-# Twitter
-TWITTER_USERNAME = 'balupton'
+# Prepare
+queryEngine = require('docpad').queryEngine
+feedr = new (require('feedr').Feedr)
+envConfig = process.env
+tumblrPosts = null
+tumblrPostsInTag = {}
+tumblrTags = []
 
 
 # =================================
@@ -129,7 +107,7 @@ module.exports = {
 				# Twitter
 				twitter:
 					name: 'Twitter'
-					url: 'https://twitter.com/balupton'
+					url: "https://twitter.com/#{envConfig.TWITTER_USERNAME}"
 					profile:
 						feeds:
 							tweets: 'twitter'
@@ -137,7 +115,7 @@ module.exports = {
 				# GitHub
 				github:
 					name: 'GitHub'
-					url: 'https://github.com/balupton'
+					url: "https://github.com/#{envConfig.GITHUB_USERNAME}"
 					profile:
 						feeds:
 							user: 'githubUser'
@@ -146,12 +124,12 @@ module.exports = {
 				# Vimeo
 				vimeo:
 					name: 'Vimeo'
-					url: 'https://vimeo.com/balupton'
+					url: "https://vimeo.com/#{envConfig.VIMEO_USERNAME}"
 
 				# Flickr
 				flickr:
 					name: 'Flickr'
-					url: 'http://www.flickr.com/people/balupton/'
+					url: "http://www.flickr.com/people/#{envConfig.FLICKR_USER_ID}"
 					profile:
 						feeds:
 							user: 'flickrUser'
@@ -160,7 +138,7 @@ module.exports = {
 				# Soundcloud
 				soundcloud:
 					name: 'Soundcloud'
-					url: 'http://soundcloud.com/balupton'
+					url: "http://soundcloud.com/#{envConfig.SOUNDCLOUD_USERNAME}"
 					profile:
 						feeds:
 							user: 'soundcloudUser'
@@ -169,7 +147,7 @@ module.exports = {
 				# Instagram
 				instagram:
 					name: 'Instagram'
-					url: 'https://github.com/balupton'
+					url: "http://instagram.com/#{envConfig.INSTAGRAM_USER_ID}"
 					profile:
 						feeds:
 							user: 'instagramUser'
@@ -245,6 +223,75 @@ module.exports = {
 		posts: (database) ->
 			database.findAllLive({relativeOutDirPath:'posts'},[date:-1])
 
+	# =================================
+	# Events
+
+	events:
+
+		# Fetch our Tumblr Posts
+		docpadReady: (opts,next) ->
+			# Check
+			return next()  if tumblrPosts? or envConfig.TUMBLR_BLOG? is false
+
+			# Prepare
+			tumblrUrl = "http://api.tumblr.com/v2/blog/#{envConfig.TUMBLR_BLOG}/posts?api_key=#{envConfig.TUMBLR_API_KEY}"
+			tumblrPosts = []
+
+			# Read feeds
+			feedr.readFeed tumblrUrl, (err,feedData) ->
+				# Check
+				return next(err)  if err
+
+				# Concat the posts
+				tumblrPosts = tumblrPosts.concat(feedData.response.posts)
+
+				# Fetch the remaining posts
+				totalPosts = feedData.response.blog.posts
+				feeds = []
+				for offset in [20...totalPosts] by 20
+					feeds.push(tumblrUrl+'&offset='+offset)
+				feedr.readFeeds feeds, (err,feedsData) ->
+					# Check
+					return next(err)  if err
+
+					# Concat the posts
+					for feedData in feedsData
+						tumblrPosts = tumblrPosts.concat(feedData.response.posts)
+
+					# Concat the tags
+					for tumblrPost in tumblrPosts
+						for tumblrPostTag in tumblrPost.tags
+							if tumblrPostsInTag[tumblrPostTag]?
+								tumblrPostsInTag[tumblrPostTag] = [tumblrPost]
+							else
+								tumblrPostsInTag[tumblrPostTag].push(tumblrPost)
+					tumblrTags = Object.keys(tumblrPostsInTag)
+
+					# Done
+					return next(err)
+
+			# Done
+			return
+
+		# Add our tumblr posts to the template data
+		extendTemplateData: (opts) ->
+			# Prepare
+			templateData = opts.templateData
+
+			# Add the tumblr posts to the template data
+			templateData.tumblrPosts = tumblrPosts
+			templateData.tumblrPostsInTag = tumblrPostsInTag
+			templateData.tumblrTags = tumblrTags
+
+			# Done
+			return
+
+		# Add our tumblr tag pages to our documents collection
+		#populateCollections: (opts) ->
+			# Prepare
+
+		#	docpad.renderPath(partial.path, {templateData:partial.data}, next)
+
 
 	# =================================
 	# Plugin Configuration
@@ -260,29 +307,26 @@ module.exports = {
 			# These are the feeds that Feedr will pull in
 			feeds:
 				# Twitter
-				twitter: url: "https://api.twitter.com/1/statuses/user_timeline.json?screen_name=#{TWITTER_USERNAME}&count=50&include_entities=false&include_rts=false&exclude_replies=true"
+				twitter: url: "https://api.twitter.com/1/statuses/user_timeline.json?screen_name=#{envConfig.TWITTER_USERNAME}&count=50&include_entities=false&include_rts=false&exclude_replies=true"
 
 				# Github
-				githubUser: url: "https://api.github.com/users/#{GITHUB_USERNAME}"
-				githubRepos: url: "https://api.github.com/users/#{GITHUB_USERNAME}/repos?sort=updated"
+				githubUser: url: "https://api.github.com/users/#{envConfig.GITHUB_USERNAME}?client_id=#{envConfig.GITHUB_CLIENT_ID}&client_secret=#{envConfig.GITHUB_CLIENT_SECRET}"
+				githubRepos: url: "https://api.github.com/users/#{envConfig.GITHUB_USERNAME}/repos?sort=updated&client_id=#{envConfig.GITHUB_CLIENT_ID}&client_secret=#{envConfig.GITHUB_CLIENT_SECRET}"
 
 				# Vimeo
-				vimeo: url: "http://vimeo.com/api/v2/#{VIMEO_USERNAME}/videos.json"
+				vimeo: url: "http://vimeo.com/api/v2/#{envConfig.VIMEO_USERNAME}/videos.json"
 
 				# Flickr
 				flickrUser:
-					url: "http://api.flickr.com/services/rest/?method=flickr.people.getInfo&api_key=#{FLICKR_API_KEY}&user_id=#{FLICKR_USER_ID}&format=json&nojsoncallback=1"
+					url: "http://api.flickr.com/services/rest/?method=flickr.people.getInfo&api_key=#{envConfig.FLICKR_API_KEY}&user_id=#{envConfig.FLICKR_USER_ID}&format=json&nojsoncallback=1"
 					clean: true
-				flickrPhotos: url: "http://api.flickr.com/services/feeds/photos_public.gne?id=#{FLICKR_USER_ID}&lang=en-us&format=json&nojsoncallback=1"
-
-				# Tumblr
-				tumblr: url: "http://api.tumblr.com/v2/blog/#{TUMBLR_BLOG}/posts?api_key=#{TUMBLR_API_KEY}"
+				flickrPhotos: url: "http://api.flickr.com/services/feeds/photos_public.gne?id=#{envConfig.FLICKR_USER_ID}&lang=en-us&format=json&nojsoncallback=1"
 
 				# Soundcloud
-				soundcloudUser: url: "https://api.soundcloud.com/users/#{SOUNDCLOUD_USERNAME}.json?client_id=#{SOUNDCLOUD_CLIENT_ID}"
-				soundcloudTracks: url: "https://api.soundcloud.com/users/#{SOUNDCLOUD_USERNAME}/tracks.json?client_id=#{SOUNDCLOUD_CLIENT_ID}"
+				soundcloudUser: url: "https://api.soundcloud.com/users/#{envConfig.SOUNDCLOUD_USERNAME}.json?client_id=#{envConfig.SOUNDCLOUD_CLIENT_ID}"
+				soundcloudTracks: url: "https://api.soundcloud.com/users/#{envConfig.SOUNDCLOUD_USERNAME}/tracks.json?client_id=#{envConfig.SOUNDCLOUD_CLIENT_ID}"
 
 				# Instagram
-				instagramUser: url: "https://api.instagram.com/v1/users/#{INSTAGRAM_USER_ID}?client_id=#{INSTAGRAM_CLIENT_ID}"
-				instagramMedia: url: "https://api.instagram.com/v1/users/#{INSTAGRAM_USER_ID}/media/recent?access_token=#{INSTAGRAM_ACCESS_TOKEN}"
+				instagramUser: url: "https://api.instagram.com/v1/users/#{envConfig.INSTAGRAM_USER_ID}?client_id=#{envConfig.INSTAGRAM_CLIENT_ID}"
+				instagramMedia: url: "https://api.instagram.com/v1/users/#{envConfig.INSTAGRAM_USER_ID}/media/recent?access_token=#{envConfig.INSTAGRAM_ACCESS_TOKEN}"
 }
