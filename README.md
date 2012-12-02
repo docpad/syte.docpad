@@ -1,5 +1,7 @@
 # Syte for DocPad
 
+Syte for DocPad is a skeleton that pulls in all its data from external sources. Unlike the original [Syte](http://rigoneri.github.com/syte/) by [Rodrigo Neri](https://github.com/rigoneri) the DocPad edition creates a static site that already contains all the data, making requests incredibly fast (no need to ajax everything which is very slow).
+
 
 ## Step 1. Clone & Install
 
