@@ -5,7 +5,7 @@
 
 1. [Install DocPad](http://docpad.org)
 
-1. Clone the project and run the server
+1. Clone the project and install dependencies
 
 	``` bash
 	git clone git://github.com/docpad/syte.docpad.git
@@ -32,13 +32,13 @@ TUMBLR_API_KEY=
 SOUNDCLOUD_USERNAME=balupton
 SOUNDCLOUD_CLIENT_ID=
 
-VIMEO_USERNAME = balupton
+VIMEO_USERNAME=balupton
 
-GITHUB_USERNAME = balupton
+GITHUB_USERNAME=balupton
 GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
 
-TWITTER_USERNAME=
+TWITTER_USERNAME=balupton
 ```
 
 And update the API Keys etc to your own values. Here are the links to get them:
