@@ -22,11 +22,11 @@
   ],
   "author": "Bevry Pty Ltd <us@bevry.me> (http://bevry.me)",
   "maintainers": [
-    "Benjamin Lupton <b@lupton.cc> (http://balupton.com)"
+    "Benjamin Lupton <b@lupton.cc> (https://github.com/balupton)"
   ],
   "contributors": [
-    "Benjamin Lupton <b@lupton.cc> (http://balupton.com)",
-    "Rodrigo Neri <@rigoneri> (http://rigoneri.com)"
+    "Benjamin Lupton <b@lupton.cc> (https://github.com/balupton)",
+    "Rodrigo Neri <@rigoneri> (https://github.com/rigoneri/)"
   ],
   "bugs": {
     "url": "https://github.com/docpad/syte.docpad/issues"
