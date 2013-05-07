@@ -10,7 +10,7 @@ Syte for [DocPad](http://docpad.org) is a skeleton that pulls in all its data fr
 1. Clone the project and install dependencies
 
 	``` bash
-	git clone git://github.com/docpad/syte.docpad.git
+	git clone https://github.com/docpad/syte.docpad.git
 	cd syte.docpad
 	npm install
 	```
