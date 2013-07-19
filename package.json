@@ -40,7 +40,7 @@
     "npm": "1.1.x"
   },
   "dependencies": {
-    "moment": "1.7.x",
+    "moment": "~2.1.0",
     "docpad": "6.x",
     "docpad-plugin-cachr": "2.x",
     "docpad-plugin-cleanurls": "2.x",

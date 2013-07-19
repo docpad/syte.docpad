@@ -1,13 +1,12 @@
 # =================================
-# Environment Configuration
-
 # Prepare
-queryEngine = require('docpad').queryEngine
-feedr = new (require('feedr').Feedr)
+
+# Import
+extendr = require('extendr')
+moment = require('moment')
+
+# Environment
 envConfig = process.env
-tumblrPosts = null
-tumblrPostsInTag = {}
-tumblrTags = []
 
 
 # =================================
@@ -30,8 +29,11 @@ module.exports = {
 	# To access one of these within our templates, refer to the FAQ: https://github.com/bevry/docpad/wiki/FAQ
 	templateData:
 
+		# Extend
+		extend: extendr.deepExtend.bind(extendr)
+
 		# Moment
-		moment: require('moment')
+		moment: moment
 
 		# Specify the theme we are using
 		theme: "metro"
@@ -221,76 +223,7 @@ module.exports = {
 
 		# This one, will fetch in all documents that have the tag "post" specified in their meta data
 		posts: (database) ->
-			database.findAllLive({relativeOutDirPath:'posts'},[date:-1])
-
-	# =================================
-	# Events
-
-	events:
-
-		# Fetch our Tumblr Posts
-		docpadReady: (opts,next) ->
-			# Check
-			return next()  if tumblrPosts? or envConfig.TUMBLR_BLOG? is false
-
-			# Prepare
-			tumblrUrl = "http://api.tumblr.com/v2/blog/#{envConfig.TUMBLR_BLOG}/posts?api_key=#{envConfig.TUMBLR_API_KEY}"
-			tumblrPosts = []
-
-			# Read feeds
-			feedr.readFeed tumblrUrl, (err,feedData) ->
-				# Check
-				return next(err)  if err
-
-				# Concat the posts
-				tumblrPosts = tumblrPosts.concat(feedData.response.posts)
-
-				# Fetch the remaining posts
-				totalPosts = feedData.response.blog.posts
-				feeds = []
-				for offset in [20...totalPosts] by 20
-					feeds.push(tumblrUrl+'&offset='+offset)
-				feedr.readFeeds feeds, (err,feedsData) ->
-					# Check
-					return next(err)  if err
-
-					# Concat the posts
-					for feedData in feedsData
-						tumblrPosts = tumblrPosts.concat(feedData.response.posts)
-
-					# Concat the tags
-					for tumblrPost in tumblrPosts
-						for tumblrPostTag in tumblrPost.tags
-							if tumblrPostsInTag[tumblrPostTag]?
-								tumblrPostsInTag[tumblrPostTag] = [tumblrPost]
-							else
-								tumblrPostsInTag[tumblrPostTag].push(tumblrPost)
-					tumblrTags = Object.keys(tumblrPostsInTag)
-
-					# Done
-					return next(err)
-
-			# Done
-			return
-
-		# Add our tumblr posts to the template data
-		extendTemplateData: (opts) ->
-			# Prepare
-			templateData = opts.templateData
-
-			# Add the tumblr posts to the template data
-			templateData.tumblrPosts = tumblrPosts
-			templateData.tumblrPostsInTag = tumblrPostsInTag
-			templateData.tumblrTags = tumblrTags
-
-			# Done
-			return
-
-		# Add our tumblr tag pages to our documents collection
-		#populateCollections: (opts) ->
-			# Prepare
-
-		#	docpad.renderPath(partial.path, {templateData:partial.data}, next)
+			database.findAllLive({tags: $has: 'post'}, [date:-1])
 
 
 	# =================================
@@ -299,6 +232,23 @@ module.exports = {
 	# To configure a plugin, specify it's name, and then the options you want to configure it with
 
 	plugins:
+
+		# Tumblr
+		tumblr:
+			helper: (document) ->
+				document.setMetaDefaults(
+					layout: 'tumblr'
+				)
+				document.setMeta(
+					tags: (document.get('tags') or []).concat(['post'])
+				)
+
+		# Tags
+		tags:
+			helper: (document) ->
+				document.setMetaDefaults(
+					layout: 'tag'
+				)
 
 		# Configure the Feedr Plugin
 		# The Feedr Plugin will pull in remote feeds specified here and make their contents available to our templates
@@ -329,4 +279,5 @@ module.exports = {
 				# Instagram
 				instagramUser: url: "https://api.instagram.com/v1/users/#{envConfig.INSTAGRAM_USER_ID}?client_id=#{envConfig.INSTAGRAM_CLIENT_ID}"
 				instagramMedia: url: "https://api.instagram.com/v1/users/#{envConfig.INSTAGRAM_USER_ID}/media/recent?access_token=#{envConfig.INSTAGRAM_ACCESS_TOKEN}"
+
 }
