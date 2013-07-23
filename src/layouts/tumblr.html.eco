@@ -1,8 +1,0 @@
----
-layout: default
----
-
-<div>
-<h2><%= @document.title %>: <%= @document.tumblr.type %>: <%= JSON.stringify @document.tags %></h2>
-<%- @partial('post/'+@document.tumblr.type, @extend({}, @document.tumblr, @document)) %>
-</div>

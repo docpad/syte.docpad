@@ -235,19 +235,32 @@ module.exports = {
 
 		# Tumblr
 		tumblr:
-			helper: (document) ->
-				document.setMetaDefaults(
-					layout: 'tumblr'
-				)
+			extension: '.html.eco'
+			injectDocumentHelper: (document) ->
 				document.setMeta(
+					layout: 'default'
 					tags: (document.get('tags') or []).concat(['post'])
+					data: """
+						<%- @partial('post/'+@document.tumblr.type, @extend({}, @document, @document.tumblr)) %>
+						"""
 				)
 
 		# Tags
 		tags:
-			helper: (document) ->
-				document.setMetaDefaults(
-					layout: 'tag'
+			extension: '.html.eco'
+			injectDocumentHelper: (document) ->
+				document.setMeta(
+					layout: 'default'
+					data: """
+						<h2>Pages with tag <%= @document.tag %>:</h2>
+						<ul>
+							<% for file in @getFiles(tags: $has: @document.tag).toJSON(): %>
+								<li>
+									<a href="<%= file.url %>"><%= file.title %></a>
+								</li>
+							<% end %>
+						</ul>
+						"""
 				)
 
 		# Configure the Feedr Plugin
