@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "moment": "~2.1.0",
-    "docpad": "~6.46.0",
+    "docpad": "~6.46.2",
     "docpad-plugin-cachr": "~2.2.0",
     "docpad-plugin-cleanurls": "~2.5.0",
     "docpad-plugin-coffeescript": "~2.2.2",
