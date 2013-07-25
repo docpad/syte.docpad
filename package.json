@@ -52,11 +52,12 @@
     "docpad-plugin-js2coffee": "~2.1.1",
     "docpad-plugin-less": "~2.1.3",
     "docpad-plugin-robotskirt": "~2.0.3",
-    "docpad-plugin-partials": "~2.7.0",
+    "docpad-plugin-partials": "~2.7.1",
     "docpad-plugin-text": "~2.2.4",
     "docpad-plugin-tags": "~2.0.0",
     "docpad-plugin-tumblr": "~2.0.0",
-    "extendr": "~2.1.0"
+    "extendr": "~2.1.0",
+    "docpad-plugin-paged": "~2.2.0"
   },
   "devDependencies": {
     "docpad-plugin-livereload": "~2.4.0"
