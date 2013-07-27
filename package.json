@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "moment": "~2.1.0",
-    "docpad": "~6.46.2",
+    "docpad": "~6.46.4",
     "docpad-plugin-cachr": "~2.2.0",
     "docpad-plugin-cleanurls": "~2.5.0",
     "docpad-plugin-coffeescript": "~2.2.2",
@@ -54,10 +54,10 @@
     "docpad-plugin-robotskirt": "~2.0.3",
     "docpad-plugin-partials": "~2.7.1",
     "docpad-plugin-text": "~2.2.4",
-    "docpad-plugin-tags": "~2.0.0",
-    "docpad-plugin-tumblr": "~2.0.0",
+    "docpad-plugin-tags": "~2.0.2",
+    "docpad-plugin-tumblr": "~2.0.1",
     "extendr": "~2.1.0",
-    "docpad-plugin-paged": "~2.2.0"
+    "docpad-plugin-paged": "~2.2.1"
   },
   "devDependencies": {
     "docpad-plugin-livereload": "~2.4.0"
