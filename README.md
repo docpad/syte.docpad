@@ -12,7 +12,7 @@ Syte for [DocPad](http://docpad.org) is a skeleton that pulls in all its data fr
 	``` bash
 	git clone https://github.com/docpad/syte.docpad.git
 	cd syte.docpad
-	npm install
+	docpad install
 	```
 
 
