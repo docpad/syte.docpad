@@ -18,28 +18,23 @@
 	<!-- DocPad Meta Information -->
 	<%- @getBlock('meta').toHTML() %>
 
-
 	<!-- Icons -->
-    <link rel="shortcut icon" href="ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
-
+	<link rel="shortcut icon" href="ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
 
 	<!-- Shims: IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
 		<script async src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-
 	<!-- Styles -->
-	<%- @getBlock('styles').add(["/styles/styles.css"]).toHTML() %>
-
+	<%- @getBlock('styles').add(@site.styles).toHTML() %>
 
 	<!-- Fonts -->
-    <link rel="stylesheet" href="fonts/syte/css/syte.css">
-    <!--[if IE 7]><link rel="stylesheet" href="fonts/syte/css/syte-ie7.css"><![endif]-->
+	<!--[if IE 7]><link rel="stylesheet" href="fonts/syte/css/syte-ie7.css"><![endif]-->
 </head>
 <body>
 	<header class="main-header">
@@ -76,13 +71,8 @@
 		<h3><a href="/"><%= @site.url %></a></h3>
 	</div>
 
-	<!-- Analytic Accounts -->
-	<% for analyticsID,analyticsAccount of @site.analytics: %>
-		<%- @partial("analytics/#{analyticsID}.html.eco", {account:@analyticsAccount}) %>
-	<% end %>
-
 	<!-- Scripts -->
-	<%- @getBlock('scripts').add(["/vendor/jquery.js","/vendor/log.js","/vendor/modernizr.js","/scripts/script.js"]).toHTML() %>
+	<%- @getBlock('scripts').add(@site.scripts).toHTML() %>
 
 	<!-- Social Profiles -->
 	<div class="modal-backdrop fade" style="display:none"></div>

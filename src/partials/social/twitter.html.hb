@@ -2,12 +2,12 @@
 	{{#with tweets.0.user}}
 	<div class="profile-info">
 		<button class="close" data-dismiss="modal">×</button>
-		<a href="http://twitter.com/#!/{{ screen_name }}" class="profile-avatar">
+		<a href="http://twitter.com/{{ screen_name }}" class="profile-avatar">
 			<img src="{{ profile_image_url }}" alt="{{name}}" />
 		</a>
 		<div class="profile-name">
-			<h2><a href="http://twitter.com/#!/{{ screen_name }}">{{ name }}</a></h2>
-			<h3><a href="http://twitter.com/#!/{{ screen_name }}">@{{ screen_name}}</a></h3>
+			<h2><a href="http://twitter.com/{{ screen_name }}">{{ name }}</a></h2>
+			<h3><a href="http://twitter.com/{{ screen_name }}">@{{ screen_name}}</a></h3>
 		</div>
 		<p class="profile-description">{{{ description }}}</p>
 		<p class="profile-location-url">
@@ -21,12 +21,12 @@
 		</p>
 	</div>
 	<ul class="profile-stats">
-		<li><a href="http://twitter.com/#!/{{ screen_name }}"><strong>{{ statuses_count }}</strong> tweets</a></li>
-		<li><a href="http://twitter.com/#!/{{ screen_name }}/following"><strong>{{ friends_count }}</strong> following</a></li> 
-		<li><a href="http://twitter.com/#!/{{ screen_name }}/followers"><strong>{{ followers_count }}</strong> followers</a></li>
+		<li><a href="http://twitter.com/{{ screen_name }}"><strong>{{ statuses_count }}</strong> tweets</a></li>
+		<li><a href="http://twitter.com/{{ screen_name }}/following"><strong>{{ friends_count }}</strong> following</a></li>
+		<li><a href="http://twitter.com/{{ screen_name }}/followers"><strong>{{ followers_count }}</strong> followers</a></li>
 	</ul>
 	<div class="profile-info-footer">
-		<a href="http://twitter.com/#!/{{ screen_name }}" class="btn">Follow on Twitter</a>
+		<a href="http://twitter.com/{{ screen_name }}" class="btn">Follow on Twitter</a>
 	</div>
 	{{/with}}
 	<ul class="profile-tweets">
