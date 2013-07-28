@@ -78,14 +78,6 @@ module.exports = {
 				place, your, website, keywoards, here, keep, them, related, to, the, content, of, your, website
 				"""
 
-			# The website analytics codes for various servers
-			analytics:
-				# ReInvigorate is a real-time analytics service
-				reinvigorate: false # instead of false, use your reinvigorate tracker id here
-
-				# Google Analytics is the most popular analytics service
-				google: false  # instead of false, use your google analytics tracker id here
-
 
 			# Specify some feed available for the visitors of our website
 			feeds: [
@@ -110,9 +102,9 @@ module.exports = {
 				twitter:
 					name: 'Twitter'
 					url: "https://twitter.com/#{envConfig.TWITTER_USERNAME}"
-					profile:
-						feeds:
-							tweets: 'twitter'
+					#profile:
+					#	feeds:
+					#		tweets: 'twitter'
 
 				# GitHub
 				github:
@@ -238,10 +230,10 @@ module.exports = {
 			extension: '.html.eco'
 			injectDocumentHelper: (document) ->
 				document.setMeta(
-					layout: 'default'
+					layout: 'page'
 					tags: (document.get('tags') or []).concat(['post'])
 					data: """
-						<%- @partial('post/'+@document.tumblr.type, @extend({}, @document, @document.tumblr)) %>
+						<%- @partial('content/'+@document.tumblr.type, @extend({}, @document, @document.tumblr)) %>
 						"""
 				)
 
@@ -250,16 +242,9 @@ module.exports = {
 			extension: '.html.eco'
 			injectDocumentHelper: (document) ->
 				document.setMeta(
-					layout: 'default'
+					layout: 'page'
 					data: """
-						<h2>Pages with tag <%= @document.tag %>:</h2>
-						<ul>
-							<% for file in @getFiles(tags: $has: @document.tag).toJSON(): %>
-								<li>
-									<a href="<%= file.url %>"><%= file.title %></a>
-								</li>
-							<% end %>
-						</ul>
+						<%- @partial('content/tag', @) %>
 						"""
 				)
 
@@ -270,7 +255,7 @@ module.exports = {
 			# These are the feeds that Feedr will pull in
 			feeds:
 				# Twitter
-				twitter: url: "https://api.twitter.com/1/statuses/user_timeline.json?screen_name=#{envConfig.TWITTER_USERNAME}&count=50&include_entities=false&include_rts=false&exclude_replies=true"
+				# twitter: url: "https://api.twitter.com/1/statuses/user_timeline.json?screen_name=#{envConfig.TWITTER_USERNAME}&count=50&include_entities=false&include_rts=false&exclude_replies=true"
 
 				# Github
 				githubUser: url: "https://api.github.com/users/#{envConfig.GITHUB_USERNAME}?client_id=#{envConfig.GITHUB_CLIENT_ID}&client_secret=#{envConfig.GITHUB_CLIENT_SECRET}"
