@@ -20,7 +20,7 @@ module.exports =
 
 	# Regenerate Every
 	# Performs a rengeraete every x milliseconds, useful for always having the latest data
-	regenerateEvery: 60*60*1000 # hour
+	# regenerateEvery: 60*60*1000 # hour
 
 
 	# =================================
