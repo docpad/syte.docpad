@@ -8,6 +8,8 @@
 		<a href="{{ permalink_url }}" class="no-border"><img src="{{ thumbnail_url }}" /></a>
 	</p>
 
+	{{{ caption }}}
+
 	<footer>
 		{{#if tags }}
 			<h4>Tags</h4>
