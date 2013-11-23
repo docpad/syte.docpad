@@ -19,8 +19,9 @@ module.exports =
 	# DocPad Options
 
 	# Regenerate Every
-	# Performs a rengeraete every x milliseconds, useful for always having the latest data
+	# Performs a Regenerate every x milliseconds, useful for always having the latest data
 	# regenerateEvery: 60*60*1000 # hour
+	regenerateEvery: 10*1000  # minute
 
 
 	# =================================
@@ -28,6 +29,11 @@ module.exports =
 	# These are variables that will be accessible via our templates
 	# To access one of these within our templates, refer to the FAQ: https://github.com/bevry/docpad/wiki/FAQ
 	templateData:
+
+		getPageModels: (models) ->
+			start = @document.page?.startIdx or 0
+			finish = @document.page?.endIdx or models.length
+			return models[start...finish]
 
 		# Extend
 		extend: extendr.deepExtend.bind(extendr)
