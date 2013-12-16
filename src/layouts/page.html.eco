@@ -3,6 +3,9 @@ layout: default
 ---
 
 <article class="main-section">
-	<h1><%= @document.title %></h1>
 	<%- @content %>
+
+	<footer>
+		<%- @partial('listing/tags', false, {document:@document}) %>
+	</footer>
 </article>

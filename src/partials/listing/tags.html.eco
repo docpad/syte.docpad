@@ -1,0 +1,9 @@
+<!-- List the tags -->
+<% if @document.tags?.length: %>
+	<section class="tags">
+		<h4>Tags</h4>
+		<ul><% for tag in @document.tags: %>
+			<li><a href="/tags/<%= tag %>"><%= tag %></a></li>
+		<% end %></ul>
+	</section>
+<% end %>

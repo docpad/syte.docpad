@@ -175,7 +175,7 @@
 		}
 }
 
-.tags {
+.tags ul {
 	list-style: none;
 	margin: 0 0 10px 0;
 

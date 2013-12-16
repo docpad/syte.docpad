@@ -8,8 +8,13 @@ pageSize: 10
 
 <!-- Page Content -->
 <section class="blog-section">
-	<% for post in @getPageModels(@getCollection('posts').models): %>
-		<%- post.get('contentRenderedWithoutLayouts') %>
+	<% for post in @getPageCollection('posts').toJSON(): %>
+        <article>
+    		<%- post.contentRenderedWithoutLayouts %>
+            <footer>
+                <%- @partial('listing/tags', false, {document:post}) %>
+            </footer>
+        </article>
 	<% end %>
 </section>
 
