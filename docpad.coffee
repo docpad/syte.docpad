@@ -239,20 +239,13 @@ module.exports =
 		tumblr:
 			extension: '.html.eco'
 			injectDocumentHelper: (document) ->
-				document
-					.setMeta(
-						layout: 'page'
-						tags: (document.get('tags') or []).concat(['post'])
-						data: """
-							<%- @partial('content/'+@document.tumblr.type, @extend({}, @document, @document.tumblr)) %>
-							"""
-					)
-					###
-					.set(
-						writeSource: true
-						fullPath: @docpad.getConfig().srcPath+'/documents/'+document.get('relativePath')
-					)
-					###
+				document.setMeta(
+					layout: 'page'
+					tags: (document.get('tags') or []).concat(['post'])
+					data: """
+						<%- @partial('content/'+@document.tumblr.type, @extend({}, @document, @document.tumblr)) %>
+						"""
+				)
 
 		# Tags
 		tags:
