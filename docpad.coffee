@@ -157,6 +157,12 @@ module.exports =
 							user: 'instagramUser'
 							media: 'instagramMedia'
 
+				# Codepen
+					name: 'Codepen'
+					url: "http://codepen.io/#{envConfig. CODEPEN_USERNAME}"
+					profile:
+						feeds:
+							user: 'codepenUser'
 
 		# -----------------------------
 		# Common links used throughout the website
@@ -287,3 +293,6 @@ module.exports =
 				# Instagram
 				instagramUser: url: "https://api.instagram.com/v1/users/#{envConfig.INSTAGRAM_USER_ID}?client_id=#{envConfig.INSTAGRAM_CLIENT_ID}"
 				instagramMedia: url: "https://api.instagram.com/v1/users/#{envConfig.INSTAGRAM_USER_ID}/media/recent?access_token=#{envConfig.INSTAGRAM_ACCESS_TOKEN}"
+
+				# Codepen
+				codepenUser: url: "http://codepen.io/#{envConfig.CODEPEN_USERNAME}/activity/feed"
